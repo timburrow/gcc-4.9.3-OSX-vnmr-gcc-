@@ -1,7 +1,7 @@
 # gcc-4.9.3-OSX-vnmr-gcc-
 A version of gcc-4.9.3 built on OS X that installs in /vnmr/gcc. Contains C, C++ and FORTRAN compilers.
 
-#Built on OS X#
+##Built on OS X
 This is a self-contained installation of gcc 4.9.3 that is installed in /vnmr/gcc
 
 Install:
@@ -11,16 +11,22 @@ sudo tar jxf gcc64.tar.bz2 -C /vnmr
 ```
 
 Set the PATH:
+
 ```
 export PATH=/vnmr/gcc/bin:${PATH}
 or
 setenv PATH /vnmr/gcc/bin:${PATH}
 ```
 
-##How I built this##
+##How I built this
+
 I started from gcc-4.9.0 (installed in /usr/local) and Xcode 6.2
 
 ###Download sources###
+
+I started from gcc-4.9.0 (installed in /usr/local) and Xcode 6.2
+
+
 Get the sources fron the GNU mirrors. I didn't use binutils in the end.
 ```
 #curl -sO http://ftp.gnu.org/gnu/binutils/binutils-2.25.tar.bz2
@@ -30,7 +36,8 @@ curl -sO http://gnu.mirror.iweb.com/mpfr/mpfr-3.1.3.tar.bz2
 curl -sO http://gnu.mirror.iweb.com/mpc/mpc-1.0.3.tar.gz
 ```
 
-Expand
+###Expand
+
 ```
 tar xf gmp-6.0.0a.tar.bz2
 tar xf mpfr-3.1.3.tar.bz2
@@ -40,7 +47,10 @@ tar xf gcc-4.9.3.tar.bz2
 tar xf libiconv-1.14.tar.gz
 ```
 
-Move the libraries required for GCC into the GCC tree.
+###Move the libraries required for GCC into the GCC tree.
+
+Move the libraries and then build in a separate directory
+
 ```
 mv gmp-6.0.0 gcc-4.9.3/gmp
 mv isl-0.14 gcc-4.9.3/isl
@@ -54,7 +64,8 @@ sudo mkdir /vnmr/gcc
 make install
 ```
 
-System used:
+###System used:
+
 uname -m = x86_64
 uname -r = 13.4.0
 uname -s = Darwin
