@@ -31,7 +31,7 @@ curl -sO http://gnu.mirror.iweb.com/libiconv/libiconv-1.14.tar.gz
 curl -sO http://gnu.mirror.iweb.com/gmp/gmp-6.0.0a.tar.bz2
 curl -sO http://gnu.mirror.iweb.com/mpfr/mpfr-3.1.3.tar.bz2
 curl -sO http://gnu.mirror.iweb.com/mpc/mpc-1.0.3.tar.gz
-isl
+curl -O ftp://gcc.gnu.org/pub/gcc/infrastructure/isl-0.14.tar.bz2
 ```
 
 ###Expand
@@ -42,12 +42,13 @@ tar xf mpfr-3.1.3.tar.bz2
 tar xf mpc-1.0.3.tar.gz
 tar xf gcc-4.9.3.tar.bz2
 tar xf libiconv-1.14.tar.gz
+tar xf isl-0.14.tar.bz2
 ```
 
 ###Build libiconv
 ```
 cd libiconv-1.14
-./configure -prefix=/vnmr/gcc/
+./configure -prefix=/vnmr/gcc/ --enable-static —disable-shared
 make -j 4 && make install
 cd ..
 ```
@@ -62,11 +63,20 @@ mv isl-0.14 gcc-4.9.3/isl
 mv mpfr-3.1.3 gcc-4.9.3/mpfr
 mv mpc-1.0.3 gcc-4.9.3/mpc
 mkdir build-gcc && cd build-gcc
-../gcc-4.9.3/configure --prefix=/vnmr/gcc/ --enable-languages=c,c++,fortran --with-system-zlib --with-libiconv-prefix=/vnmr/gcc
+../gcc-4.9.3/configure --prefix=/vnmr/gcc/ --enable-languages=c,c++,fortran --with-system-zlib --with-libiconv-prefix=/vnmr/gcc --with-native-system-header-dir=/usr/include -with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk
 make -j 6
 sudo mkdir /vnmr/gcc
 make install
 ```
+## Troubleshooting##
+
+If <stdio.h> or <stdlib.h> cannot be found, then the system headers are not in the right place. This gcc assumes headers are in /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk
+
+Install Xcode, if you haven't already. If you are running a newer version of OS X (like El Capitan), then the SDK may be different. Find out the SDKs installed and use:
+```
+export CPFLAGS='-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.XX.sdk'
+```
+where XX is replaced with the correct SDK 
 
 ###System used:
 
