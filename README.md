@@ -79,8 +79,10 @@ gcc -c -o test.o test.c $CPPFLAGS
 ```
 where XX is replaced with the correct SDK 
 
-If FORTRAN code does not link, at the link stage put
+If FORTRAN code does not link, at the link stage use:
+```
 gcc -o test test.o output.o -L/vnmr/gcc/lib -lgfortran $CPPFLAGS
+```
 
 ###System used:
 
