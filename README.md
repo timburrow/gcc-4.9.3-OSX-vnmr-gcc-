@@ -68,15 +68,19 @@ make -j 6
 sudo mkdir /vnmr/gcc
 make install
 ```
-## Troubleshooting##
+### Troubleshooting###
 
 If <stdio.h> or <stdlib.h> cannot be found, then the system headers are not in the right place. This gcc assumes headers are in /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk
 
 Install Xcode, if you haven't already. If you are running a newer version of OS X (like El Capitan), then the SDK may be different. Find out the SDKs installed and use:
 ```
-export CPFLAGS='-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.XX.sdk'
+export CPPFLAGS='-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.XX.sdk'
+gcc -c -o test.o test.c $CPPFLAGS
 ```
 where XX is replaced with the correct SDK 
+
+If FORTRAN code does not link, at the link stage put
+gcc -o test test.o output.o -L/vnmr/gcc/lib -lgfortran $CPPFLAGS
 
 ###System used:
 
