@@ -84,6 +84,11 @@ If FORTRAN code does not link, at the link stage use:
 gcc -o test test.o output.o -L/vnmr/gcc/lib -lgfortran $CPPFLAGS
 ```
 
+If libSystem.dylib is not found with an error: "ld: library not found for -lSystem" then at the link stage add:
+```
+-L/usr/lib
+```
+
 ###System used:
 
 uname -m = x86_64
